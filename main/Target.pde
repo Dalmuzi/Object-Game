@@ -4,22 +4,23 @@ class Target {
   float size; 
   
   Target(){
-    size = random(70, 110);
+    size = random(70, 110); //Min and Max size of the targets and they come out in random
     
-    float y = random(250, 350);
-    float x = random(1) < 0.5 ? - size : width + size;
+    float y = random(250, 350); //random vertical position between 250 and 350
+    float x = random(1) < 0.5 ? - size : width + size; 
     pos = new PVector(x,y);
     float direction = (x < width / 2) ? 1 : -1;
-    vel = new PVector (direction * random(2,5), 0);
+    vel = new PVector (direction * random(2,5), 0); //Horizontal velocity
   }
   
+  //updating the target position
   void update(){
     pos.x += vel.x * speedMultiplier;
     
     if(pos.x < -size) pos.x = width + size;
     if(pos.x > width + size) pos.x = -size;
   }
-  
+  //displays the target shapes, which are like human dummies
   void display(){
     pushMatrix();
     translate(pos.x, pos.y);

@@ -1,5 +1,5 @@
 class Scope{
-  PVector pos;
+  PVector pos; //This allows to keep the scope point in the center
   
   Scope(){
     pos = new PVector(width/2, height/2);
@@ -7,13 +7,15 @@ class Scope{
   }
   
   void update(){
+    //updated movement where the camera moves in the drag of the mouse not the position of the mouse
     float directionx = (pmouseX - mouseX) * 0.5;
     float directiony = (pmouseY - mouseY) * 0.5;
     
-    worldOffset.x += directionx;
-    worldOffset.y += directiony;
+    camera.x += directionx;
+    camera.y += directiony;
   }
   
+  //displays the scope graphics
   void display(){
     noFill();
     stroke(0);
