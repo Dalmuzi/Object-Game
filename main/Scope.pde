@@ -7,11 +7,11 @@ class Scope{
   }
   
   void update(){
-    float directionx = pmouseX - mouseX;
-    float directiony = pmouseY - mouseY;
+    float directionx = (pmouseX - mouseX) * 0.5;
+    float directiony = (pmouseY - mouseY) * 0.5;
     
-    worldOffset.x += directionx * 0.5;
-    worldOffset.y += directiony * 0.5;
+    worldOffset.x += directionx;
+    worldOffset.y += directiony;
   }
   
   void display(){
