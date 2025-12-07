@@ -1,4 +1,4 @@
-
+import processing.sound.*;
 ArrayList<Target> targets;
 Scope scope;
 
@@ -6,15 +6,14 @@ int score = 0;
 int hp = 5;
 boolean playing = true;
 PVector worldOffset;
-
 float speedMultiplier = 1;
+SoundFile soundEffect;
 
 void setup() {
   size(400, 400);
-
+  soundEffect = new SoundFile(this, "Gunshot Sound Effect.wav");
   targets = new ArrayList<Target>();
   scope = new Scope();
-
   worldOffset = new PVector(0, 0);
 
   for (int i = 0; i < 5; i++) {
@@ -63,7 +62,7 @@ void playGame() {
 }
 
 void mousePressed() {
-
+  soundEffect.play();
   if (!playing) return;
 
   boolean hitSomething = false;
@@ -79,12 +78,10 @@ void mousePressed() {
     float d = dist(wx, wy, sx, sy);
 
     if (d < scopeRadius && d < hitZone) {
-
       score++;
       hitSomething = true;
-
       targets.remove(i);
-
+      
       if (score % 5 == 0) {
         speedMultiplier += 0.4;
       }
