@@ -6,6 +6,7 @@ int score = 0;
 int hp = 5;
 boolean playing = true;
 PVector worldOffset;
+ParticleSystem ps;
 
 float speedMultiplier = 1;
 
@@ -14,6 +15,7 @@ void setup() {
 
   targets = new ArrayList<Target>();
   scope = new Scope();
+  ps = new ParticleSystem();
 
   worldOffset = new PVector(0, 0);
 
@@ -49,7 +51,9 @@ void playGame() {
   scope.display();
 
   drawHPBullets();
-
+  
+  ps.ParticleDisplay();
+  
   fill(255);
   text("Score: " + score, 10, 20);
 
@@ -66,7 +70,7 @@ void mousePressed() {
 
   if (!playing) return;
 
-  boolean hitSomething = false;
+  boolean hit = false;
   float sx = width / 2;
   float sy = height / 2;
   float scopeRadius = 75;  
@@ -81,17 +85,19 @@ void mousePressed() {
     if (d < scopeRadius && d < hitZone) {
 
       score++;
-      hitSomething = true;
+      hit = true;
 
       targets.remove(i);
 
       if (score % 5 == 0) {
         speedMultiplier += 0.4;
       }
+      
+      ps.burst(sx,sy);
     }
   }
 
-  if (!hitSomething) {
+  if (!hit) {
     hp--;
   }
 }
@@ -119,6 +125,7 @@ void restart() {
   hp = 5;
   speedMultiplier = 1;
   worldOffset.set(0, 0);
+  ps.clear();
 
   playing = true;
 }
