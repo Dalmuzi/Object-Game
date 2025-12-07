@@ -6,6 +6,11 @@ int score = 0;
 int hp = 5;
 boolean playing = true;
 PVector worldOffset;
+<<<<<<< HEAD
+=======
+ParticleSystem ps;
+
+>>>>>>> challenge2-particle
 float speedMultiplier = 1;
 SoundFile soundEffect;
 
@@ -14,6 +19,11 @@ void setup() {
   soundEffect = new SoundFile(this, "Gunshot Sound Effect.wav");
   targets = new ArrayList<Target>();
   scope = new Scope();
+<<<<<<< HEAD
+=======
+  ps = new ParticleSystem();
+
+>>>>>>> challenge2-particle
   worldOffset = new PVector(0, 0);
 
   for (int i = 0; i < 5; i++) {
@@ -48,7 +58,9 @@ void playGame() {
   scope.display();
 
   drawHPBullets();
-
+  
+  ps.ParticleDisplay();
+  
   fill(255);
   text("Score: " + score, 10, 20);
 
@@ -65,7 +77,7 @@ void mousePressed() {
   soundEffect.play();
   if (!playing) return;
 
-  boolean hitSomething = false;
+  boolean hit = false;
   float sx = width / 2;
   float sy = height / 2;
   float scopeRadius = 75;  
@@ -79,16 +91,23 @@ void mousePressed() {
 
     if (d < scopeRadius && d < hitZone) {
       score++;
+<<<<<<< HEAD
       hitSomething = true;
+=======
+      hit = true;
+
+>>>>>>> challenge2-particle
       targets.remove(i);
       
       if (score % 5 == 0) {
         speedMultiplier += 0.4;
       }
+      
+      ps.burst(sx,sy);
     }
   }
 
-  if (!hitSomething) {
+  if (!hit) {
     hp--;
   }
 }
@@ -116,6 +135,7 @@ void restart() {
   hp = 5;
   speedMultiplier = 1;
   worldOffset.set(0, 0);
+  ps.clear();
 
   playing = true;
 }
